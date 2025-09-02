@@ -135,9 +135,9 @@ class ServerInferenceEngine:
         if drowsiness_detected != self.drowsiness_detected:
             self.drowsiness_detected = drowsiness_detected
             if drowsiness_detected:
-                logger.warning("⚠️  检测到驾驶员疲劳！")
+                logger.warning("警告: 检测到驾驶员疲劳！")
             else:
-                logger.info("✅ 驾驶员状态恢复正常")
+                logger.info("正常: 驾驶员状态恢复正常")
         
         return drowsiness_detected
     

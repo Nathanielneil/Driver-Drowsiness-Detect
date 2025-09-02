@@ -1,8 +1,6 @@
 import cv2
 import numpy as np
 import time
-import threading
-import pygame
 from collections import deque
 from face_detection import FaceDetector
 from eye_classifier import EyePredictor, create_simple_predictor
@@ -31,50 +29,19 @@ class DrowsinessDetector:
         # 状态追踪
         self.closed_eye_frames = 0
         self.drowsiness_detected = False
-        self.alert_active = False
         
         # 历史数据存储
         self.ear_history = deque(maxlen=30)  # 保存最近30帧的EAR值
         self.prediction_history = deque(maxlen=10)  # 保存最近10帧的预测结果
         
-        # 初始化声音警报
-        self.init_alarm()
-        
         # 统计信息
         self.frame_count = 0
         self.start_time = time.time()
     
-    def init_alarm(self):
-        try:
-            pygame.mixer.init()
-            # 创建一个简单的警报音
-            sample_rate = 22050
-            duration = 0.5
-            frequency = 800
-            
-            frames = int(duration * sample_rate)
-            arr = np.zeros((frames, 2))
-            
-            for i in range(frames):
-                wave = 32767 * np.sin(frequency * 2 * np.pi * i / sample_rate)
-                arr[i][0] = wave
-                arr[i][1] = wave
-            
-            self.alarm_sound = pygame.sndarray.make_sound(arr.astype(np.int16))
-            print("警报系统初始化成功")
-        except Exception as e:
-            print(f"警报系统初始化失败: {e}")
-            self.alarm_sound = None
-    
-    def play_alarm(self):
-        if self.alarm_sound and not self.alert_active:
-            self.alert_active = True
-            self.alarm_sound.play()
-            # 在另一个线程中重置警报状态
-            threading.Timer(1.0, self.reset_alarm).start()
-    
-    def reset_alarm(self):
-        self.alert_active = False
+    def log_alert(self):
+        """记录疲劳警报"""
+        timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+        print(f"[{timestamp}] 警报: 检测到驾驶员疲劳状态！")
     
     def analyze_frame(self, frame):
         self.frame_count += 1
@@ -127,7 +94,7 @@ class DrowsinessDetector:
                     
                     if is_drowsy:
                         results['alert_triggered'] = True
-                        self.play_alarm()
+                        self.log_alert()
                 
                 # 在图像上绘制关键点和信息
                 frame = self.draw_annotations(frame, landmarks, results)
@@ -155,9 +122,9 @@ class DrowsinessDetector:
         if drowsiness_detected != self.drowsiness_detected:
             self.drowsiness_detected = drowsiness_detected
             if drowsiness_detected:
-                print("⚠️  检测到驾驶员疲劳！")
+                print("警告: 检测到驾驶员疲劳！")
             else:
-                print("✅ 驾驶员状态恢复正常")
+                print("正常: 驾驶员状态恢复正常")
         
         return drowsiness_detected
     

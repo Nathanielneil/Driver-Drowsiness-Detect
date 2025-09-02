@@ -13,7 +13,6 @@ MODEL_CONFIG = {
 DROWSINESS_CONFIG = {
     'ear_threshold': 0.25,  # Eye Aspect Ratio阈值
     'consecutive_frames': 20,  # 连续帧数判断疲劳
-    'alarm_duration': 1.0  # 警报持续时间
 }
 
 # 文件路径配置

@@ -159,35 +159,25 @@ def test_eye_classifier():
         print(f"❌ 眼部分类器测试失败: {e}")
         return False
 
-def test_audio():
-    """测试音频系统"""
-    print("测试音频系统...")
+def test_logging():
+    """测试日志系统"""
+    print("测试日志系统...")
     try:
-        import pygame
-        pygame.mixer.init()
-        print("✓ pygame音频系统初始化成功")
+        import logging
         
-        # 测试简单音频生成
-        import numpy as np
-        sample_rate = 22050
-        duration = 0.1
-        frequency = 440
+        # 创建测试日志器
+        logger = logging.getLogger('test_logger')
+        logger.setLevel(logging.INFO)
         
-        frames = int(duration * sample_rate)
-        arr = np.zeros((frames, 2))
+        # 测试不同级别的日志
+        logger.info("测试信息日志")
+        logger.warning("测试警告日志")
         
-        for i in range(frames):
-            wave = 32767 * np.sin(frequency * 2 * np.pi * i / sample_rate)
-            arr[i][0] = wave
-            arr[i][1] = wave
-        
-        sound = pygame.sndarray.make_sound(arr.astype(np.int16))
-        print("✓ 测试音频生成成功")
-        
+        print("✓ 日志系统测试成功")
         return True
         
     except Exception as e:
-        print(f"❌ 音频系统测试失败: {e}")
+        print(f"❌ 日志系统测试失败: {e}")
         return False
 
 def main():
@@ -201,7 +191,7 @@ def main():
         test_camera,
         test_face_detection,
         test_eye_classifier,
-        test_audio
+        test_logging
     ]
     
     results = []
@@ -223,16 +213,16 @@ def main():
     print(f"通过: {passed}/{total}")
     
     if passed == total:
-        print("🎉 所有测试通过！系统已就绪")
+        print("所有测试通过！系统已就绪")
         print("\n可以运行以下命令启动系统:")
         print("  python run_demo.py")
         print("  python drowsiness_detector.py")
     else:
-        print("⚠️  部分测试失败，请检查相关组件")
+        print("部分测试失败，请检查相关组件")
         print("\n建议:")
         print("1. 确保所有依赖都已正确安装")
         print("2. 运行 python setup.py 重新设置")
-        print("3. 检查摄像头和音频设备连接")
+        print("3. 检查摄像头设备连接")
 
 if __name__ == "__main__":
     main()

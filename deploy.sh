@@ -34,7 +34,7 @@ if [ "$OS" = "ubuntu" ]; then
         libdlib-dev \
         ffmpeg \
         wget curl \
-        supervisor nginx
+        supervisor
 elif [ "$OS" = "centos" ]; then
     sudo yum update -y
     sudo yum install -y \
@@ -43,7 +43,7 @@ elif [ "$OS" = "centos" ]; then
         opencv opencv-devel \
         ffmpeg \
         wget curl \
-        supervisor nginx
+        supervisor
 else
     echo "请手动安装以下依赖: python3, cmake, opencv, ffmpeg"
 fi
@@ -135,7 +135,7 @@ echo "运行系统测试..."
 sudo -u $APP_USER $APP_DIR/venv/bin/python test_system.py
 
 echo ""
-echo "🎉 服务器部署完成！"
+echo "服务器部署完成！"
 echo ""
 echo "服务管理命令:"
 echo "  sudo systemctl start drowsiness-detection    # 启动服务"
