@@ -1,0 +1,107 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyTorch
+*.pth
+*.pt
+
+# Virtual environments
+venv/
+ENV/
+env/
+.env
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs/*.log
+*.log
+
+# Output files
+output/*.jpg
+output/*.png
+output/*.avi
+output/*.mp4
+output/*.json
+output/result_*
+
+# Model files (large files)
+models/*.dat
+models/*.pth
+models/*.pt
+models/*.onnx
+
+# Data files
+data/
+*.mp4
+*.avi
+*.mov
+
+# Demo images (user will add their own)
+demo/*.jpg
+demo/*.jpeg
+demo/*.png
+demo/*.bmp
+
+# Temporary files
+*.tmp
+*.temp
+
+# System files
+.cache/
+.pytest_cache/
+
+# Claude Code files
+.claude/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+
+# Keep important directories but ignore their contents
+!output/.gitkeep
+!logs/.gitkeep
+!data/.gitkeep
+!demo/.gitkeep

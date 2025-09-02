@@ -1,0 +1,2 @@
+# 保持models目录存在
+# dlib模型文件会通过setup.py自动下载
