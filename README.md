@@ -277,35 +277,7 @@ import pandas as pd
 df.to_csv('drowsiness_log.csv')
 ```
 
-## 贡献指南
-
-1. Fork项目仓库
-2. 创建功能分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送分支 (`git push origin feature/AmazingFeature`)  
-5. 创建Pull Request
 
 ## 许可证
 
 本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情
-
-## 联系方式
-
-- 项目地址: [GitHub Repository]
-- 问题反馈: [GitHub Issues]
-- 邮箱: [your-email@example.com]
-
-## 更新日志
-
-### v1.0.0 (2024-01-xx)
-- ✨ 初始版本发布
-- 🎯 基础疲劳检测功能
-- 📱 实时视频处理
-- 🚨 音频警报系统
-
-### 计划功能
-- [ ] Web界面管理
-- [ ] 移动端应用  
-- [ ] 云端部署支持
-- [ ] 更多深度学习模型
-- [ ] 疲劳程度等级评估
