@@ -8,6 +8,7 @@ import cv2
 import json
 import argparse
 import sys
+import numpy as np
 from pathlib import Path
 from datetime import datetime
 from face_detection import FaceDetector
@@ -96,11 +97,12 @@ def test_single_image(image_path, output_dir=None, save_result=True):
                             face_result['eye_state_by_cnn'] = eye_state_by_cnn
                             face_result['confidence'] = float(confidence)
                             
-                            print(f"  基于CNN的眼部状态: {eye_state_by_cnn} (置信度: {confidence:.2f})")
+                            # print(f"  基于CNN的眼部状态: {eye_state_by_cnn} (置信度: {confidence:.2f})")
+                            print(f"  基于CNN的眼部状态: {eye_state_by_cnn} ")
                             
                             # 综合判断疲劳状态
                             is_drowsy = (avg_ear < ear_threshold) or (prediction == 0)
-                            face_result['drowsiness_detected'] = is_drowsy
+                            face_result['drowsiness_detected'] = bool(is_drowsy)  # 确保转换为Python原生bool类型
                             print(f"  疲劳检测结果: {'疲劳' if is_drowsy else '正常'}")
                     
                 # 在图像上绘制检测结果
@@ -144,7 +146,8 @@ def test_single_image(image_path, output_dir=None, save_result=True):
         # 保存JSON结果
         json_path = output_dir / f"result_{image_name}.json"
         with open(json_path, 'w', encoding='utf-8') as f:
-            json.dump(results, f, indent=2, ensure_ascii=False)
+            # 使用自定义序列化函数确保numpy类型正确转换
+            json.dump(results, f, indent=2, ensure_ascii=False, default=lambda obj: bool(obj) if isinstance(obj, np.bool_) else obj)
         results['result_json'] = str(json_path)
         print(f"检测结果已保存: {json_path}")
     
@@ -208,7 +211,8 @@ def batch_test_demo_folder(demo_folder="demo", output_dir="output"):
     summary_path = output_path / "batch_test_summary.json"
     
     with open(summary_path, 'w', encoding='utf-8') as f:
-        json.dump(summary, f, indent=2, ensure_ascii=False)
+        # 使用自定义序列化函数确保numpy类型正确转换
+        json.dump(summary, f, indent=2, ensure_ascii=False, default=lambda obj: bool(obj) if isinstance(obj, np.bool_) else obj)
     
     print(f"\n{'='*50}")
     print("批量测试完成！")
